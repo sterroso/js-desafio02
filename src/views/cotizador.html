@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header id="header">
+            <div class="brand">
+                <div class="logo-container">
+                    <img src="../img/bank.png" alt="Bank Logo" class="logo">
+                </div>
+                <h1 class="title">Cotizador</h1>
+            </div>
+            <nav id="nav-bar">
+                <ul class="main-menu">
+                    <li class="menu-item"><a href="../" class="link">Inicio</a></li>
+                    <li class="menu-item"><a href="./cotizador.html" class="link active">Cotizador</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="main">
+            <h2 class="section-title">Instrucciones</h2>
+
+            <p>Llene los campos del formulario con los datos necesarios y presione el botón Cotizar.</p>
+
+            <section class="rfp-container">
+                <form action="presupuesto.html" method="post" id="rfp-form">
+                    <fieldset class="client-info">
+                        <legend>Datos del Cliente</legend>
+
+                        <label for="client-fname">Nombre(s):</label>
+                        <input type="text" id="client-fname" aria-required="true" required placeholder="Nombre(s) completo(s)">
+
+                        <label for="client-lname">Apellido(s):</label>
+                        <input type="text" id="client-lname" aria-required="true" required placeholder="Apellido(s) completo(s)">
+
+                        <label for="client-email">Correo electrónico:</label>
+                        <input type="email" id="client-email" aria-required="true" required placeholder="Correo electrónico">
+                    </fieldset>
+
+                    <fieldset class="credit-info">
+                        <legend>Datos del Crédito</legend>
+
+                        <fieldset class="credit-type">
+                            <legend>Destino</legend>
+                            <input type="radio" name="credit-type" id="mortgage"><label for="mortgage">Hipotecario</label>
+                            <input type="radio" name="credit-type" id="car-buying"><label for="car-buying">Automotriz</label>
+                            <input type="radio" name="credit-type" id="consumption"><label for="consumption">Consumo</label>
+                            <input type="radio" name="credit-type" id="other"><label for="other">Otro / No especificado</label>
+                        </fieldset>
+
+                        <label for="credit-amount">Cantidad:</label>
+                        <input type="number" name="credit-amount" id="credit-amount" aria-required="true" required min="0">
+
+                        <label for="credit-time">Plazo:</label>
+                        <select name="credit-time" id="credit-time" aria-required="true" required>
+                            <option value="12">1 año</option>
+                            <option value="36">3 años</option>
+                            <option value="60">5 años</option>
+                            <option value="120">10 años</option>
+                            <option value="180">15 años</option>
+                            <option value="240">20 años</option>
+                        </select>
+                    </fieldset>
+                    <div class="form-button-container">
+                        <input type="submit" value="Cotizar">
+                        <input type="reset" value="Limpiar">
+                    </div>
+                </form>
+            </section>
+
+            <section class="table-container" id="output-node">
+            </section>
+        </main>
+
+        <footer id="footer"></footer>
+    </div>
+
+    <script src="../js/eventhandler.js"></script>
+    <script src="../js/simulador.js"></script>
+</body>
+</html>
