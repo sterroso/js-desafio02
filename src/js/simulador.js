@@ -217,6 +217,12 @@
                     'tasaDeInteres': this.interestRate,
                     'meses': this.numberOfPeriods,
                     'pagos': [],
+                    'totales': {
+                        'totalCapital': 0,
+                        'totalIntereses': 0,
+                        'totalIvaIntereses': 0,
+                        'totalPagos': 0,
+                    }
                 }
             };
 
@@ -248,6 +254,12 @@
             let finalAmount = 0.00;
             let paymentRow = {};
 
+            // También declaro las variables que guardan los totales para el resumen al final de la tabla.
+            let totalPrincipalPayments = 0;
+            let totalInterestsPayments = 0;
+            let totalInterestsVatPayments = 0;
+            let totalPayments = 0;
+
             // Como es conocido el número de períodos que serán calculados, se hace 
             // dentro de un bucle for, desde el período 1 hasta el período n = numberOfPeriods.
             for (let period = 1; period <= this.numberOfPeriods; period++) {
@@ -263,14 +275,33 @@
                 // El importe de intereses del período es igual al saldo inicial multiplicado por la tasa de interés parcial.
                 interestAmount = parseFloat((initialAmount * partialInterestRate).toFixed(2));
 
-                // La amortización pagada es la diferencia entre el pago fijo mensual (payment) y el interés del período.
-                amortization = parseFloat((payment - interestAmount).toFixed(2));
+                // Actualizo el total de pagos de intereses.
+                totalInterestsPayments += interestAmount;
+
+                // Si estamos el en último período ...
+                if (period === this.numberOfPeriods) {
+                    // ... entonces la amortización es igual al saldo inicial ...
+                    amortization = initialAmount;
+                } else {
+                    // ... de lo contrario, la amortización pagada es la diferencia entre el pago fijo 
+                    // mensual (payment) y el interés del período.
+                    amortization = parseFloat((payment - interestAmount).toFixed(2));
+                }
+
+                // Actualizo el total de pagos a capital.
+                totalPrincipalPayments += amortization;
 
                 // El IVA de los intereses del período es el producto de la tasa de IVA y el interés del período.
                 interestVAT = parseFloat((interestAmount * Budget.#VAT_RATE).toFixed(2));
 
+                // Actualizo el total de pagos de IVA de intereses.
+                totalInterestsVatPayments += interestVAT;
+
                 // El pago total del período es la suma de la amortización, los intereses y el IVA de los intereses.
                 totalPayment = amortization + interestAmount + interestVAT;
+
+                // Actualizo el total de pagos.
+                totalPayments += totalPayment;
 
                 // El saldo al final del período es la diferencia entre el saldo inicial y la amortización.
                 finalAmount = parseFloat((initialAmount - amortization).toFixed(2));
@@ -289,6 +320,12 @@
                 // Se agrega la fila de pago del período al arreglo de pagos de la tabla.
                 tabla.credito.pagos.push(paymentRow);
             }
+
+            // Coloco los valores de los totales en la tabla.
+            tabla.credito.totales.totalCapital = totalPrincipalPayments;
+            tabla.credito.totales.totalIntereses = totalInterestsPayments;
+            tabla.credito.totales.totalIvaIntereses = totalInterestsVatPayments;
+            tabla.credito.totales.totalPagos = totalPayments;
 
             // Se devuelve la tabla y sale de la función.
             return tabla;
@@ -415,6 +452,7 @@ const displayTable = table => {
     let rowPagoTotal = 0;
     let rowSaldoFinal = 0;
     let paymentsTableBodyRow = null;
+
     // Bucle para recorrer todos los períodos en la tabla de amortización y
     // crear una fila en la tabla para cada uno.
     table.credito.pagos.forEach(row => {
@@ -431,6 +469,19 @@ const displayTable = table => {
 
     // Poner el Body en la Tabla ...
     paymentsTable.appendChild(paymentsTableBody);
+
+    // El pie de la tabla con el resumen (totales) de los pagos.
+    let tableFooter = document.createElement('tfoot');
+    let tableFooterRow = document.createElement('tr');
+    tableFooterRow.appendChild(document.createElement('td')).innerHTML = 'TOTALES';
+    tableFooterRow.appendChild(document.createElement('td'));   // Celda vacía.
+    tableFooterRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(table.credito.totales.totalCapital);
+    tableFooterRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(table.credito.totales.totalIntereses);
+    tableFooterRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(table.credito.totales.totalIvaIntereses);
+    tableFooterRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(table.credito.totales.totalPagos);
+    tableFooterRow.appendChild(document.createElement('td'));   // Celda vacía.
+    tableFooter.appendChild(tableFooterRow);
+    paymentsTable.appendChild(tableFooter);
 
     // Poner la tabla en el nodo de salida...
     outputNode.appendChild(paymentsTable);
