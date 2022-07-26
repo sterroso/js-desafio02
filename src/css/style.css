@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -7,4 +8,141 @@
 
 .container {
   font-family: "Inter", Calibri, Arial, Helvetica, sans-serif;
+  margin: 1rem;
+}
+.container .brand {
+  display: flex;
+  align-items: baseline;
+}
+.container #nav-bar .main-menu {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem 0;
+}
+.container #nav-bar .main-menu .menu-item {
+  margin: 0 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+.container #nav-bar .main-menu .menu-item .link {
+  text-decoration: none;
+}
+.container .rfp-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-start;
+}
+.container #rfp-form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+  max-width: 480px;
+  min-width: 310px;
+  flex: 1 1 auto;
+}
+.container #rfp-form fieldset {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+.container #rfp-form fieldset legend {
+  font-weight: bold;
+}
+.container #rfp-form fieldset label {
+  margin-left: 0.75rem;
+  margin-top: 0.75rem;
+}
+.container #rfp-form fieldset input[type=text], .container #rfp-form fieldset input[type=email], .container #rfp-form fieldset input[type=number], .container #rfp-form fieldset select {
+  margin-left: 0.75rem;
+  margin-right: 0.5rem;
+  font-family: "Source Code Pro", "Courier New", Courier, monospace;
+}
+.container #rfp-form .credit-type {
+  margin-left: 0.75rem;
+  display: grid;
+  grid-template-columns: -webkit-min-content minmax(-webkit-max-content, 1fr);
+  grid-template-columns: min-content minmax(max-content, 1fr);
+}
+.container #rfp-form .credit-type input[type=radio] {
+  margin-left: 0.75rem;
+}
+.container #rfp-form .credit-type label {
+  margin-left: 0.5rem;
+  margin-top: 0;
+  width: minmax(-webkit-max-content, 90%);
+  width: minmax(-moz-max-content, 90%);
+  width: minmax(max-content, 90%);
+  flex: 1 1 auto;
+}
+.container #rfp-form .form-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+.container #rfp-form .form-button-container input[type=submit], .container #rfp-form .form-button-container input[type=reset] {
+  padding: 0.5rem 1rem;
+  font-family: "Inter", Calibri, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  border: solid medium;
+  border-radius: 0.5rem;
+}
+.container #rfp-form .form-button-container input[type=submit] {
+  color: black;
+  border-color: green;
+  background-color: palegreen;
+}
+.container #rfp-form .form-button-container input[type=reset] {
+  color: black;
+  border-color: crimson;
+  background-color: palevioletred;
+}
+.container .table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+.container .table-container .payments-table {
+  font-family: "Source Code Pro", "Courier New", Courier, monospace;
+}
+.container .table-container .payments-table .header-row {
+  font-weight: bold;
+}
+.container .table-container .payments-table .header-row th {
+  text-align: end;
+  padding: 0 0.5rem;
+  border-top: solid medium black;
+  border-bottom: solid thin black;
+}
+.container .table-container .payments-table .body-row td {
+  text-align: end;
+  padding: 0 0.5rem;
+  border-bottom: solid thin black;
+}
+.container .table-container .payments-table .body-row td:nth-child(1) {
+  color: gold;
+  font-weight: bold;
+  background-color: black;
+}
+.container .table-container .payments-table .body-row:nth-child(odd) {
+  background: silver;
+}
+.container .table-container .payments-table .footer-row td {
+  text-align: end;
+  font-weight: bold;
+  padding: 0 0.5rem;
+  border-bottom: double thin black;
+}
+.container footer {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 1200px;
+    margin: 1rem auto;
+  }
 }/*# sourceMappingURL=style.css.map */

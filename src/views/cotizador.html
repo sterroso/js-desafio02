@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -30,7 +31,7 @@
             <p>Llene los campos del formulario con los datos necesarios y presione el botón Cotizar.</p>
 
             <section class="rfp-container">
-                <form action="presupuesto.html" method="post" id="rfp-form">
+                <form action="#" method="post" id="rfp-form">
                     <fieldset class="client-info">
                         <legend>Datos del Cliente</legend>
 
@@ -52,11 +53,11 @@
                             <input type="radio" name="credit-type" id="mortgage"><label for="mortgage">Hipotecario</label>
                             <input type="radio" name="credit-type" id="car-buying"><label for="car-buying">Automotriz</label>
                             <input type="radio" name="credit-type" id="consumption"><label for="consumption">Consumo</label>
-                            <input type="radio" name="credit-type" id="other"><label for="other">Otro / No especificado</label>
+                            <input type="radio" name="credit-type" id="other" checked><label for="other">Otro / No especificado</label>
                         </fieldset>
 
                         <label for="credit-amount">Cantidad:</label>
-                        <input type="number" name="credit-amount" id="credit-amount" aria-required="true" required min="0">
+                        <input type="number" name="credit-amount" id="credit-amount" aria-required="true" required min="20000" placeholder="Importe del crédito">
 
                         <label for="credit-time">Plazo:</label>
                         <select name="credit-time" id="credit-time" aria-required="true" required>
@@ -79,10 +80,13 @@
             </section>
         </main>
 
-        <footer id="footer"></footer>
+        <footer id="footer">
+            <div class="copyright">
+                <p>Todos los derechos reservados. 2022. Sergio Terroso Cabrera</p>
+            </div>
+        </footer>
     </div>
 
-    <script src="../js/eventhandler.js"></script>
     <script src="../js/simulador.js"></script>
 </body>
 </html>

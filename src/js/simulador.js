@@ -367,11 +367,13 @@ budgetForm.addEventListener('submit', event => {
     let clientEmail = clientEmailField.value;
     let creditAmount = parseFloat(creditAmountField.value);
     let creditInterestRate = 0;
+
     creditTypesField.forEach(element => {
         if (element.checked) {
             creditInterestRate = getInterestRate(element.id);
         }
     });
+
     let creditPaybackTime = parseFloat(creditTimeField.value);
 
     let client = new Client(clientFirstName, clientLastName, clientEmail);
@@ -426,10 +428,13 @@ const displayTable = table => {
 
     // Crear un tag <table></table> para la tabla de pagos.
     let paymentsTable = document.createElement('table');
+    paymentsTable.classList.add('payments-table');
+
     // Encabezado de la tabla.
     let paymentsTableHeader = document.createElement('thead');
     // Títulos de las columnas.
     let paymentsTableHeaderRow = document.createElement('tr');
+    paymentsTableHeaderRow.classList.add('header-row');
     paymentsTableHeaderRow.appendChild(document.createElement('th')).innerHTML = 'Período';
     paymentsTableHeaderRow.appendChild(document.createElement('th')).innerHTML = 'Saldo inicial';
     paymentsTableHeaderRow.appendChild(document.createElement('th')).innerHTML = 'Amortización';
@@ -457,6 +462,7 @@ const displayTable = table => {
     // crear una fila en la tabla para cada uno.
     table.credito.pagos.forEach(row => {
         paymentsTableBodyRow = document.createElement('tr');
+        paymentsTableBodyRow.classList.add('body-row');
         paymentsTableBodyRow.appendChild(document.createElement('td')).innerHTML = row.periodo;
         paymentsTableBodyRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(row.saldoInicial);
         paymentsTableBodyRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(row.amortizacion);
@@ -473,6 +479,7 @@ const displayTable = table => {
     // El pie de la tabla con el resumen (totales) de los pagos.
     let tableFooter = document.createElement('tfoot');
     let tableFooterRow = document.createElement('tr');
+    tableFooterRow.classList.add('footer-row');
     tableFooterRow.appendChild(document.createElement('td')).innerHTML = 'TOTALES';
     tableFooterRow.appendChild(document.createElement('td'));   // Celda vacía.
     tableFooterRow.appendChild(document.createElement('td')).innerHTML = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(table.credito.totales.totalCapital);
