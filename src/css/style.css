@@ -70,9 +70,7 @@
 .container #rfp-form .credit-type label {
   margin-left: 0.5rem;
   margin-top: 0;
-  width: minmax(-webkit-max-content, 90%);
-  width: minmax(-moz-max-content, 90%);
-  width: minmax(max-content, 90%);
+  width: 85%;
   flex: 1 1 auto;
 }
 .container #rfp-form .form-button-container {

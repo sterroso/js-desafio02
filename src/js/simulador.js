@@ -110,7 +110,8 @@
     static #MONTHS_PER_YEAR = 12;
 
     /**
-     * Constructor.
+     * Crea una instancia de presupuesto (Budget) con importe (credit), número de
+     * períodos / meses (periods) y tasa de interés (interest) definidos.
      * 
      * @param {number} credit El importe del crédito.
      * @param {number} periods La cantidad de meses en que deberá ser pagado el importe del crédito.
@@ -342,6 +343,9 @@ const budgetForm = document.getElementById('rfp-form');
 // Campo para el/los nombre(s) de pila del Cliente
 const clientFirstNameField = document.getElementById('client-fname');
 
+// Etiqueta para mostrar errores de validación del campo client-fname.
+const clientFirstNameFieldError = document.getElementById('client-fname-error');
+
 // Campo para el/los apellido(s) del Cliente.
 const clientLastNameField = document.getElementById('client-lname');
 
@@ -363,16 +367,14 @@ const outputNode = document.getElementById('output-node');
 // Captura el evento envío del formulario.
 budgetForm.addEventListener('submit', event => {
     let clientFirstName = clientFirstNameField.value;
-    let clientLastName = clientLastNameField.value;
-    let clientEmail = clientEmailField.value;
-    let creditAmount = parseFloat(creditAmountField.value);
-    let creditInterestRate = 0;
 
-    creditTypesField.forEach(element => {
-        if (element.checked) {
-            creditInterestRate = getInterestRate(element.id);
-        }
-    });
+    let clientLastName = clientLastNameField.value;
+
+    let clientEmail = clientEmailField.value;
+
+    let creditAmount = parseFloat(creditAmountField.value);
+
+    let creditInterestRate = getInterestRate(Array.from(creditTypesField).find(element => element.checked).id);
 
     let creditPaybackTime = parseFloat(creditTimeField.value);
 
@@ -389,18 +391,36 @@ budgetForm.addEventListener('submit', event => {
     event.preventDefault();
 });
 
+// Cuando el usuario presiona el botón 'Limpiar'
+budgetForm.addEventListener('reset', event => {
+    clearOutput();
+});
+
+// Valida los campos de Nombre(s) y Apellido(s) del Cliente (client-fname)
+const isValidName = value => {
+    // Nombre(s) y Apellido(s) no deben ser nulos y tener, por lo menos, 1 caracter
+    return value !== null && value.length > 0
+};
+
 // Devuelve la tasa de interés según el tipo de crédito elegido.
+// Se coloca en una función con un switch para fomentar la reutilización:
+// Si se agregan nuevos tipos de créditos, con diferentes tasas, únicamente se
+// agregan más cases al switch.
 const getInterestRate = type => {
     switch (type) {
+        // Crédto hipotecario: interés del 11.00% anual
         case 'mortgage':
             return 0.11;
         
+        // Crédito automotriz: interés del 14.00% anual
         case 'car-buying':
             return 0.14;
         
+        // Crédito para el consumo: interés del 25.00% anual
         case 'consumption':
             return 0.25;
         
+        // Otros créditos: interés del 35.00% anual
         case 'other':
         default:
             return 0.35;

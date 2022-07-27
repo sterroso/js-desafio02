@@ -36,13 +36,16 @@
                         <legend>Datos del Cliente</legend>
 
                         <label for="client-fname">Nombre(s):</label>
-                        <input type="text" id="client-fname" aria-required="true" required placeholder="Nombre(s) completo(s)">
+                        <input type="text" id="client-fname" aria-required="true" required minlength="3" pattern="^[A-Za-z]{3,}[ A-Za-z]*$" placeholder="Nombre(s) completo(s)">
+                        <span class="form-error" id="client-fname-error"></span>
 
                         <label for="client-lname">Apellido(s):</label>
-                        <input type="text" id="client-lname" aria-required="true" required placeholder="Apellido(s) completo(s)">
+                        <input type="text" id="client-lname" aria-required="true" required minlength="3" pattern="^[A-Za-z]{3,}[ A-Za-z]*$" placeholder="Apellido(s) completo(s)">
+                        <span class="form-error" id="client-lname-error"></span>
 
                         <label for="client-email">Correo electrónico:</label>
-                        <input type="email" id="client-email" aria-required="true" required placeholder="Correo electrónico">
+                        <input type="email" id="client-email" aria-required="true" required minlength="6" pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$" placeholder="Correo electrónico">
+                        <span class="form-error" id="client-email-error"></span>
                     </fieldset>
 
                     <fieldset class="credit-info">
@@ -54,10 +57,12 @@
                             <input type="radio" name="credit-type" id="car-buying"><label for="car-buying">Automotriz</label>
                             <input type="radio" name="credit-type" id="consumption"><label for="consumption">Consumo</label>
                             <input type="radio" name="credit-type" id="other" checked><label for="other">Otro / No especificado</label>
+                            <span class="form-error" id="credit-type-error"></span>
                         </fieldset>
 
                         <label for="credit-amount">Cantidad:</label>
                         <input type="number" name="credit-amount" id="credit-amount" aria-required="true" required min="20000" placeholder="Importe del crédito">
+                        <span class="form-error" id="credit-amount-error"></span>
 
                         <label for="credit-time">Plazo:</label>
                         <select name="credit-time" id="credit-time" aria-required="true" required>
@@ -68,6 +73,7 @@
                             <option value="180">15 años</option>
                             <option value="240">20 años</option>
                         </select>
+                        <span class="form-error" id="credit-time-error"></span>
                     </fieldset>
                     <div class="form-button-container">
                         <input type="submit" value="Cotizar">
